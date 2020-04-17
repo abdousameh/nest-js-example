@@ -12,10 +12,11 @@ import { APP_FILTER } from '@nestjs/core';
 import { UploadExceptionFilter } from './filter/upload-exception.filter';
 import { UploadLoggerMiddleware } from './middleware/upload-logger.middleware';
 import { UsersService } from './users/users.service';
+import { MONGODB_ROOT } from './config/global.env';
 
 @Module({
   imports: [
-    TypegooseModule.forRoot('mongodb://localhost:27017/task-manager', {
+    TypegooseModule.forRoot(MONGODB_ROOT, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,

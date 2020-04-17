@@ -14,10 +14,11 @@ import * as fs from 'fs';
 import { UsersService } from './users.service';
 import { User } from './user.model';
 import { LoggerService } from '../logger/logger.service';
-import { UploadExceptionFilter } from 'src/filter/upload-exception.filter';
+import { UploadExceptionFilter } from '../filter/upload-exception.filter';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { UPLOAD_OPTIONS } from 'src/config/global.env';
-import { UploadError } from 'src/error/upload.error';
+import { UPLOAD_OPTIONS } from '../config/global.env';
+import { UploadError } from '../error/upload.error';
+import { MailService } from '../shared/services/mail.service';
 
 @Controller('users')
 export class UsersController {
@@ -25,8 +26,15 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  async create(@Body() user: User): Promise<{ id: string }> {
+  async createUser(@Body() user: User): Promise<{ id: string }> {
     return await this.usersService.insertUser(user);
+  }
+
+  @Post('mail')
+  async sendMail() {
+    this.logger.setMethod(this.sendMail.name);
+    const mailer = new MailService();
+    mailer.sendMail(process.env.MAILER_RECIPIENT, 'Test', 'Test');
   }
 
   @Get(':username')

@@ -42,9 +42,32 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-# 1 - Logger
+# 1 - Configuration
 
-Librairies used :
+Library used :
+
+- env-cmd
+
+Before to start the project, you must create <em>.env</em> file under main directory. This file must contain the following configuration :
+
+```bash
+APP_LISTEN_PORT=3000
+MONGODB_ROOT=mongodb://localhost:27017/##<database-name>##
+UPLOAD_DIR=/uploads
+APP_NAME=app
+APP_ENV=dev
+LOG_DIR=/logs
+MAILER_HOST=##<mailer-host>##
+MAILER_PORT=##<mailer-port>##
+MAILER_USERNAME=##<connection-username>##
+MAILER_PASSWORD=##<connection-password>##
+MAILER_FROM=##<from-adress>##
+MAILER_RECIPIENT=##<test-recipient-address>##
+```
+
+# 2 - Logger
+
+Libraries used :
 
 - winston
 - winston-daily-rotate
@@ -131,7 +154,7 @@ export class UsersController {
 
 The parameters of logger are define in file <em>global.env.ts</em>.
 
-# 2 - MongoDB connexion
+# 3 - MongoDB connexion
 
 Librairies used:
 
@@ -142,9 +165,9 @@ Librairies used:
 
 For MongoDB, I have created a local database and developped a <em>users</em> module in which I created some CRUD methods as examples.
 
-# 3 - File upload
+# 4 - File upload
 
-Librairies used:
+Library used:
 
 - multer
 
@@ -173,7 +196,7 @@ You must user the Multer configuration locally. I have developed the <em>uploadA
 
 The <em>UPLOAD_OPTIONS</em> are definde in the <em>global.env.ts</em> file. In the example, there is a filter file example. Only jpg, jpeg and png files are accepted. The other files are rejected.
 
-# 4 - Exception filter
+# 5 - Exception filter
 
 I have tried to implement an exception filter, and I had also many troubles to do this.
 My exception filter is implemented in the class <em>UploadExceptionFilter</em>.
@@ -231,7 +254,7 @@ export class UsersController {
 
 This exception filter is installed but it is not working. When I upload a file no problem. When there another error like user yet exist when you try to create one, it does not work because exception filter intercept all exceptions. On exception filter there is <span style="color: #00BFFF"><em>@Catch()</em></span> without any filter. When modify the catch as <span style="color: #00BFFF"><em>@Catch(UploadError)</em></span>, it is working for user creation but not for avatar file uploading. <span style="color: red">For me, it seems to be a bug. Don't use this exception filter as it. A bug correction has to done or somebody has to explain to me how to do.</span>
 
-# 5 - Middleware
+# 6 - Middleware
 
 I have created a middleware named <span style="color: #00BFFF"><em>UploadLoggerMiddleware</em></span>. For using this middleware, you have to :
 
@@ -253,9 +276,22 @@ This middleware will be apply to all the routes "users/upload/\*".
 
 - Normally you nothing to do more. But in my case, before testing this middleware, I had to modify the filter <span style="color: #00BFFF"><em>UploadExceptionFilter</em></span> for replacing <span style="color: #00BFFF"><em>@Catch(UploadError)</em></span> by <span style="color: #00BFFF"><em>@Catch()</em></span>.
 
-# 6 - Tests
+# 7 - Mailer
+
+Library used :
+
+- nodemailer
+
+I have deveoped a simple class named <em>MailService</em>. The mailer configuration is define in <em>global.env.ts</em>. Before using this class you need to upgrade the configuration with your own data. You need alse to modify the class <em>MailService</em> for upgrading your own email address.
+
+# 8 - Tests
 
 All the tests have been made with Postman. You can find test collection used in <span style="color: #00BFFF"><em>"Postman/nest-js-example.postman_collection.json"</em></span>.
+
+An example of end-to-end test has been added to this project. This example is stored in <em>tests-e2e</em> directory. This example shows how to write end-to-end tests in separated files. Before to execute this test suite, you need to create <em>.env.test</em> file in main directory. This file contains the configuration for tests. You can, for example use a specific database.
+
+The content of the configuration file is identical to the <em>.env</em> file described in chapter 1.
+
 
 ## About
 

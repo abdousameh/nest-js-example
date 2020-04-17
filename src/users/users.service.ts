@@ -9,7 +9,7 @@ import * as bcrypt from 'bcryptjs';
 import { ReturnModelType } from '@typegoose/typegoose';
 
 import { User } from './user.model';
-import { LoggerService } from 'src/logger/logger.service';
+import { LoggerService } from '../logger/logger.service';
 
 @Injectable()
 export class UsersService {

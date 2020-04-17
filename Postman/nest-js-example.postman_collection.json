@@ -40,7 +40,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"lastName\": \"Andrew\",\n\t\"firstName\": \"Jonhson\",\n\t\"email\": \"andrew@gmail.com\",\n\t\"password\": \"Ntr08$ret\"\n}",
+					"raw": "{\n\t\"lastname\": \"Andrew\",\n\t\"firstname\": \"Jonhson\",\n\t\"email\": \"andrew@gmail.com\",\n\t\"password\": \"Ntr08$ret\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -240,6 +240,26 @@
 							"key": "username",
 							"value": "jess1@gmail.com"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send mail",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/users/mail",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"mail"
 					]
 				}
 			},
