@@ -4,9 +4,6 @@ import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer
 // Definition of the database access
 export const MONGODB_ROOT = process.env.MONGODB_ROOT;
 
-// Application listen port
-export const APP_LISTEN_PORT = parseInt(process.env.APP_LISTEN_PORT);
-
 // Definition of parameters for file uploading
 export const UPLOAD_OPTIONS: MulterOptions = {
   dest: process.env.UPLOAD_DIR,
@@ -60,3 +57,6 @@ export const MAILER_CONFIG = {
   user: process.env.MAILER_USERNAME,
   password: process.env.MAILER_PASSWORD,
 };
+
+// Chat parameters
+export const CHAT_PORT = parseInt(process.env.CHAT_PORT);

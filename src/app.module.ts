@@ -4,8 +4,6 @@ import {
   MiddlewareConsumer,
   RequestMethod,
 } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { UserModule } from './users/users.module';
 import { APP_FILTER } from '@nestjs/core';
@@ -13,6 +11,9 @@ import { UploadExceptionFilter } from './filter/upload-exception.filter';
 import { UploadLoggerMiddleware } from './middleware/upload-logger.middleware';
 import { UsersService } from './users/users.service';
 import { MONGODB_ROOT } from './config/global.env';
+import { ChatGateway } from './websockets/chat/chat.gateway';
+import { AlertGateway } from './websockets/alert/alert.gateway';
+import { AlertController } from './websockets/alert/alert.controller';
 
 @Module({
   imports: [
@@ -23,14 +24,15 @@ import { MONGODB_ROOT } from './config/global.env';
     }),
     UserModule,
   ],
-  controllers: [AppController],
+  controllers: [AlertController],
   providers: [
-    AppService,
     UsersService,
     {
       provide: APP_FILTER,
       useClass: UploadExceptionFilter,
     },
+    ChatGateway,
+    AlertGateway,
   ],
 })
 export class AppModule implements NestModule {

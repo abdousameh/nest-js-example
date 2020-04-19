@@ -63,6 +63,7 @@ MAILER_USERNAME=##<connection-username>##
 MAILER_PASSWORD=##<connection-password>##
 MAILER_FROM=##<from-adress>##
 MAILER_RECIPIENT=##<test-recipient-address>##
+CHAT_PORT=3001
 ```
 
 # 2 - Logger
@@ -292,6 +293,54 @@ An example of end-to-end test has been added to this project. This example is st
 
 The content of the configuration file is identical to the <em>.env</em> file described in chapter 1.
 
+# 8 - Websockets
+
+In this project, I have integrated an example of websockets. This example has been greatly inspired from the following video course of Brian Johnson :
+
+https://www.youtube.com/watch?v=0zyYhm5MjJ4
+
+I have just made some modifications and improvements.
+
+The module <em>main.ts</em>, to be able to deliver static files, has been modified as follows :
+```bash
+import { join } from 'path';
+
+async function bootstrap() {
+  ...
+  app.useStaticAssets(join(__dirname, '../../src/websockets', 'static'));
+  await app.listen(3000);
+}
+bootstrap();
+```
+
+The module <em>app.module.ts</em> has been modified has follows :
+```bash
+import { ChatGateway } from './websockets/chat/chat.gateway';
+import { AlertGateway } from './websockets/alert/alert.gateway';
+import { AlertController } from './websockets/alert/alert.controller';
+
+@Module({
+  ...
+  controllers: [AlertController],
+  providers: [
+    ...
+    ChatGateway,
+    AlertGateway,
+  ],
+})
+export class AppModule implements NestModule {
+  ...
+}
+```
+The client has been developed using Vue.js.
+
+The URL to connect to the client is the following : http://localhost:3000
+
+The source code for the client and the server is under <em>websockets</em> directory.
+
+This example implements a chat with 3 rooms (General, TypeScript, NestJs) and an alert broadcasting.
+
+For the alert broadcasting, you need to use Postman with the request <em>Websocket broadcasting</em>.
 
 ## About
 

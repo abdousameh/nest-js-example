@@ -117,19 +117,19 @@ export class LoggerService {
 
   static formatDate(Date: Date): string {
     const dateFormatted: string =
-      ('0' + Date.getDate()).slice(-2) +
+      ('0' + Date.getUTCDate()).slice(-2) +
       '/' +
-      ('0' + (Date.getMonth() + 1)).slice(-2) +
+      ('0' + (Date.getUTCMonth() + 1)).slice(-2) +
       '/' +
-      Date.getFullYear() +
+      Date.getUTCFullYear() +
       ' ' +
-      ('0' + Date.getHours()).slice(-2) +
+      ('0' + Date.getUTCHours()).slice(-2) +
       ':' +
-      ('0' + Date.getMinutes()).slice(-2) +
+      ('0' + Date.getUTCMinutes()).slice(-2) +
       ':' +
-      ('0' + Date.getSeconds()).slice(-2) +
+      ('0' + Date.getUTCSeconds()).slice(-2) +
       '.' +
-      ('00' + Date.getMilliseconds()).slice(-3);
+      ('00' + Date.getUTCMilliseconds()).slice(-3);
     return dateFormatted;
   }
 
