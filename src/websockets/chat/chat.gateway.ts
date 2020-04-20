@@ -15,10 +15,9 @@ export class ChatGateway implements OnGatewayInit {
 
   @WebSocketServer() wss: Server;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   afterInit(server: any) {
     this.logger.setMethod(this.afterInit.name);
-    this.logger.debug('Websocket server initialized!');
+    this.logger.log('Initialized!');
   }
 
   @SubscribeMessage('chatToServer')
@@ -27,7 +26,7 @@ export class ChatGateway implements OnGatewayInit {
     payload: { sender: string; room: string; hour: string; message: string },
   ) {
     this.logger.setMethod(this.handleMessage.name);
-    this.logger.debug(
+    this.logger.log(
       `Message on room ${payload.room} sent by ${payload.sender}: ${payload.message}`,
     );
     payload.hour = DateTool.fmtFullHour(new Date());
@@ -41,7 +40,7 @@ export class ChatGateway implements OnGatewayInit {
   ) {
     this.logger.setMethod(this.handleJoinChatRoom.name);
     if (payload.username && payload.room) {
-      this.logger.debug(
+      this.logger.log(
         `The player ${payload.username} has joined the room ${payload.room}`,
       );
     }
@@ -56,7 +55,7 @@ export class ChatGateway implements OnGatewayInit {
   ) {
     this.logger.setMethod(this.handleLeaveChatRoom.name);
     if (payload.username && payload.room) {
-      this.logger.debug(
+      this.logger.log(
         `The player ${payload.username} has left the room ${payload.room}`,
       );
       client.leave(payload.room);

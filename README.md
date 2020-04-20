@@ -64,6 +64,8 @@ MAILER_PASSWORD=##<connection-password>##
 MAILER_FROM=##<from-adress>##
 MAILER_RECIPIENT=##<test-recipient-address>##
 CHAT_PORT=3001
+TOKEN_SECRET_KEY=##<secret-key>##
+TOKEN_EXP_DURATION=600
 ```
 
 # 2 - Logger
@@ -293,7 +295,7 @@ An example of end-to-end test has been added to this project. This example is st
 
 The content of the configuration file is identical to the <em>.env</em> file described in chapter 1.
 
-# 8 - Websockets
+# 9 - Websockets
 
 In this project, I have integrated an example of websockets. This example has been greatly inspired from the following video course of Brian Johnson :
 
@@ -302,6 +304,7 @@ https://www.youtube.com/watch?v=0zyYhm5MjJ4
 I have just made some modifications and improvements.
 
 The module <em>main.ts</em>, to be able to deliver static files, has been modified as follows :
+
 ```bash
 import { join } from 'path';
 
@@ -314,6 +317,7 @@ bootstrap();
 ```
 
 The module <em>app.module.ts</em> has been modified has follows :
+
 ```bash
 import { ChatGateway } from './websockets/chat/chat.gateway';
 import { AlertGateway } from './websockets/alert/alert.gateway';
@@ -332,6 +336,7 @@ export class AppModule implements NestModule {
   ...
 }
 ```
+
 The client has been developed using Vue.js.
 
 The URL to connect to the client is the following : http://localhost:3000
@@ -341,6 +346,43 @@ The source code for the client and the server is under <em>websockets</em> direc
 This example implements a chat with 3 rooms (General, TypeScript, NestJs) and an alert broadcasting.
 
 For the alert broadcasting, you need to use Postman with the request <em>Websocket broadcasting</em>.
+
+# 10 - Authentication
+
+Librairies used:
+
+- @nestjs/passport
+- @nestjs/jwt
+- passport
+- passport-local
+- passport-jwt
+
+Authentication with JWT has been implemented. All the files have been created in <em>auth</em> directory. The <em>AppModule</em> has been modified has following :
+
+```bash
+...
+import { AuthModule } from './auth/auth.module';
+
+@Module({
+  imports: [
+    ...
+    AuthModule,
+  ],
+  ...
+})
+export class AppModule implements NestModule {
+  ...
+}
+```
+
+To test,modified the modu this functionality, I have modified the <em>UsersController</em> for adding the decorator <em>@UseGuards(JwtAuthGuard)</em> on the method <em>getUser</em>. If you want to test the authentication, 2 new requests have been added to the Postman file. The first allows to get a token for an existing user (<em>Get Authentication</em>). With the token returned, you have to modify the request <em>Get user</em> (replace the token in the Authorization tab). Before starting the test, you must :
+
+1. Suppress the decorator <em>@UseGuards(JwtAuthGuard)</em> on the method <em>getUser</em>
+2. Execute the Postman request <em>Post user Jess</em> for creating user without Authentication
+3. Put back the decorator <em>@UseGuards(JwtAuthGuard)</em> on the method <em>getUser</em>
+4. Execute the Postman request <em>Get Authentication</em>
+5. Catch the token in the result of the request and modify the <em>Get user</em> request
+6. Execute the <em>Get user</em> request
 
 ## About
 

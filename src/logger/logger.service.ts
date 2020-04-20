@@ -13,7 +13,7 @@ import {
 } from '../config/global.env';
 
 export class LoggerService {
-  private readonly logger: Logger;
+  private static logger: Logger;
   private methodName: string;
   private readonly prettyError = new PrettyError();
 
@@ -28,8 +28,10 @@ export class LoggerService {
   };
 
   constructor(private className: string) {
-    if (!this.logger) {
-      this.logger = (winston as any).createLogger(LoggerService.loggerOptions);
+    if (!LoggerService.logger) {
+      LoggerService.logger = (winston as any).createLogger(
+        LoggerService.loggerOptions,
+      );
       this.prettyError.skipNodeFiles();
       this.prettyError.skipPackage('express', '@nestjs/common', '@nestjs/core');
     }
@@ -45,7 +47,7 @@ export class LoggerService {
       PROD_LOG_LEVEL <= LogLevel.DEBUG
     ) {
       const currentDate = new Date();
-      this.logger.debug(message, {
+      LoggerService.logger.debug(message, {
         timestamp: currentDate.toISOString(),
         context:
           this.className + (this.methodName ? `.${this.methodName}` : ''),
@@ -60,7 +62,7 @@ export class LoggerService {
       PROD_LOG_LEVEL <= LogLevel.INFO
     ) {
       const currentDate = new Date();
-      this.logger.info(message, {
+      LoggerService.logger.info(message, {
         timestamp: currentDate.toISOString(),
         context:
           this.className + (this.methodName ? `.${this.methodName}` : ''),
@@ -75,7 +77,7 @@ export class LoggerService {
       PROD_LOG_LEVEL <= LogLevel.INFO
     ) {
       const currentDate = new Date();
-      this.logger.info(message, {
+      LoggerService.logger.info(message, {
         timestamp: currentDate.toISOString(),
         context:
           this.className + (this.methodName ? `.${this.methodName}` : ''),
@@ -90,7 +92,7 @@ export class LoggerService {
       PROD_LOG_LEVEL <= LogLevel.WARNING
     ) {
       const currentDate = new Date();
-      this.logger.warn(message, {
+      LoggerService.logger.warn(message, {
         timestamp: currentDate.toISOString(),
         context:
           this.className + (this.methodName ? `.${this.methodName}` : ''),
@@ -106,30 +108,33 @@ export class LoggerService {
     ) {
       const currentDate = new Date();
       // i think the trace should be JSON Stringified
-      this.logger.error(`${message} -> (${trace || 'trace not provided !'})`, {
-        timestamp: currentDate.toISOString(),
-        context:
-          this.className + (this.methodName ? `.${this.methodName}` : ''),
-      });
+      LoggerService.logger.error(
+        `${message} -> (${trace || 'trace not provided !'})`,
+        {
+          timestamp: currentDate.toISOString(),
+          context:
+            this.className + (this.methodName ? `.${this.methodName}` : ''),
+        },
+      );
     }
     this.formatedLog(LogLevel.ERROR, message, trace);
   }
 
   static formatDate(Date: Date): string {
     const dateFormatted: string =
-      ('0' + Date.getUTCDate()).slice(-2) +
+      ('0' + Date.getDate()).slice(-2) +
       '/' +
-      ('0' + (Date.getUTCMonth() + 1)).slice(-2) +
+      ('0' + (Date.getMonth() + 1)).slice(-2) +
       '/' +
-      Date.getUTCFullYear() +
+      Date.getFullYear() +
       ' ' +
-      ('0' + Date.getUTCHours()).slice(-2) +
+      ('0' + Date.getHours()).slice(-2) +
       ':' +
-      ('0' + Date.getUTCMinutes()).slice(-2) +
+      ('0' + Date.getMinutes()).slice(-2) +
       ':' +
-      ('0' + Date.getUTCSeconds()).slice(-2) +
+      ('0' + Date.getSeconds()).slice(-2) +
       '.' +
-      ('00' + Date.getUTCMilliseconds()).slice(-3);
+      ('00' + Date.getMilliseconds()).slice(-3);
     return dateFormatted;
   }
 

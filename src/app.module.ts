@@ -5,7 +5,7 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { TypegooseModule } from 'nestjs-typegoose';
-import { UserModule } from './users/users.module';
+import { UsersModule } from './users/users.module';
 import { APP_FILTER } from '@nestjs/core';
 import { UploadExceptionFilter } from './filter/upload-exception.filter';
 import { UploadLoggerMiddleware } from './middleware/upload-logger.middleware';
@@ -14,6 +14,7 @@ import { MONGODB_ROOT } from './config/global.env';
 import { ChatGateway } from './websockets/chat/chat.gateway';
 import { AlertGateway } from './websockets/alert/alert.gateway';
 import { AlertController } from './websockets/alert/alert.controller';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { AlertController } from './websockets/alert/alert.controller';
       useUnifiedTopology: true,
       useCreateIndex: true,
     }),
-    UserModule,
+    UsersModule,
+    AuthModule,
   ],
   controllers: [AlertController],
   providers: [

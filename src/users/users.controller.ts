@@ -9,6 +9,7 @@ import {
   UseFilters,
   UseInterceptors,
   UploadedFile,
+  UseGuards,
 } from '@nestjs/common';
 import * as fs from 'fs';
 import { UsersService } from './users.service';
@@ -19,6 +20,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { UPLOAD_OPTIONS } from '../config/global.env';
 import { UploadError } from '../error/upload.error';
 import { MailService } from '../shared/services/mail.service';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -37,6 +39,7 @@ export class UsersController {
     mailer.sendMail(process.env.MAILER_RECIPIENT, 'Test', 'Test');
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':username')
   async getUser(@Param('username') username: string) {
     this.logger.setMethod(this.getUser.name);

@@ -1,7 +1,7 @@
 import { WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 import { LoggerService } from '../../logger/logger.service';
-import { CHAT_PORT } from 'src/config/global.env';
+import { CHAT_PORT } from '../../config/global.env';
 
 @WebSocketGateway(CHAT_PORT, { namespace: '/alert' })
 export class AlertGateway {

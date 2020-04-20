@@ -8,5 +8,6 @@ import { UsersService } from './users.service';
   imports: [TypegooseModule.forFeature([User])],
   controllers: [UsersController],
   providers: [UsersService],
+  exports: [UsersService],
 })
-export class UserModule {}
+export class UsersModule {}

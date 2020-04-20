@@ -12,7 +12,7 @@ export class AlertController {
   @HttpCode(200)
   sendAlertToAll(@Body() dto: { message: string }) {
     this.logger.setMethod(this.sendAlertToAll.name);
-    this.logger.debug(`Alert message: ${dto.message}`);
+    this.logger.log(`Alert message: ${dto.message}`);
     this.alertGateway.sendToAll(dto.message);
   }
 }

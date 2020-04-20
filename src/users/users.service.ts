@@ -14,6 +14,7 @@ import { LoggerService } from '../logger/logger.service';
 @Injectable()
 export class UsersService {
   private readonly logger = new LoggerService(UsersService.name);
+
   constructor(
     @Optional()
     @InjectModel(User)
@@ -99,6 +100,7 @@ export class UsersService {
     user.lastname = lastname ? lastname : user.lastname;
     user.firstname = firstname ? firstname : user.firstname;
     user.email = email ? email : user.email;
+    user.modificationDate = new Date();
     new this.userModel(user).save();
     return null;
   }
@@ -118,8 +120,26 @@ export class UsersService {
     }
     user = await this.findUser(username);
     user.username = newUsername;
+    user.modificationDate = new Date();
     new this.userModel(user).save();
     return null;
+  }
+
+  /**
+   * Check if a username exists and if the passed password is the good one.
+   *
+   * @param username username to check
+   * @param password password to check
+   * @returns null or user informations
+   */
+  async checkPassword(username: string, password: string): Promise<User> {
+    this.logger.setMethod(this.checkPassword.name);
+    const user = await this.findUser(username);
+    if (user && !bcrypt.compare(password, user.password)) {
+      return null;
+    } else {
+      return user;
+    }
   }
 
   /**
@@ -153,6 +173,7 @@ export class UsersService {
     }
     const hashedPwd = bcrypt.hashSync(newPassword, 8);
     user.password = hashedPwd;
+    user.modificationDate = new Date();
     new this.userModel(user).save();
     return null;
   }

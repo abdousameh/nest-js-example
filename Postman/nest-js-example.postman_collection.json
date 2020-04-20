@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"lastname\": \"Jess\",\n\t\"firstname\": \"Smith\",\n\t\"email\": \"JESS@gmail.com\",\n\t\"password\": \"N7tr$rtyui\"\n}",
+					"raw": "{\n\t\"lastname\": \"Jess\",\n\t\"firstname\": \"Smith\",\n\t\"email\": \"JESS@gmail.com\",\n\t\"password\": \"N7tr$rtyui\",\n\t\"pseudo\": \"Jess\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -288,6 +288,92 @@
 					"port": "3000",
 					"path": [
 						"alert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Authentication",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "jess@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "N7tr$rtyui",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Trtuik",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/users/:username",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						":username"
+					],
+					"variable": [
+						{
+							"key": "username",
+							"value": "jess@gmail.com"
+						}
 					]
 				}
 			},

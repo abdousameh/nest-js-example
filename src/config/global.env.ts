@@ -60,3 +60,8 @@ export const MAILER_CONFIG = {
 
 // Chat parameters
 export const CHAT_PORT = parseInt(process.env.CHAT_PORT);
+
+// Token generation parameters
+export const TOKEN_SECRET_KEY = process.env.TOKEN_SECRET_KEY;
+export const TOKEN_EXP_OPTION = process.env.TOKEN_EXP_DURATION;
+export const TOKEN_EXP_DURATION = parseInt(process.env.TOKEN_EXP_DURATION);

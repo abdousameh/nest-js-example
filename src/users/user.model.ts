@@ -1,5 +1,5 @@
 import { prop, mongoose } from '@typegoose/typegoose';
-import { IsString } from 'class-validator';
+import { IsString, IsDate } from 'class-validator';
 
 export enum UserStatus {
   CREATED,
@@ -42,6 +42,16 @@ export class User {
   email: string;
 
   @IsString()
+  @prop({
+    required: true,
+    unique: true,
+    minlength: 4,
+    maxlength: 12,
+    trim: true,
+  })
+  pseudo: string;
+
+  @IsString()
   @prop({ required: true, maxlength: 255, trim: true })
   password: string;
 
@@ -52,4 +62,12 @@ export class User {
   @IsString()
   @prop({ enum: UserStatus, default: UserStatus.CREATED })
   status: number;
+
+  @IsDate()
+  @prop({ default: new Date() })
+  readonly creationDate: Date;
+
+  @IsDate()
+  @prop({ default: new Date() })
+  modificationDate: Date;
 }
