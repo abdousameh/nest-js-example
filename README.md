@@ -13,8 +13,8 @@
 
 <!-- [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository. -->
 
-This project has developed to give some examples of some functionalities of NestJS framework. I am learning this framework alone and I'm having a lot of trouble with some functionalities. If you are beginner like me, I hope that this project will help you a little.
-If you have some remarks, on my english whichi s not very good, on my programming style to improve it, on some bugs you have found to solve its, on some improvement on my code to improve it, on some new functionalities to add its if possible (it could be easier for me if you some code to propose to me).
+This project has been developed to give some examples of some functionalities of NestJS framework. I am learning this framework alone and I'm having a lot of trouble with some functionalities. If you are a beginner like me, I hope that this project will help you a little.
+If you have some remarks, on my english which is not very good, on my programming style to improve it, on some bugs you have found to solve its, on some improvements on my code to improve it, on some new functionalities to add its if possible (it could be easier for me if you have some code to propose to me).
 
 ## Version
 
@@ -98,7 +98,7 @@ This logger has 2 functioning modes:
 
 For using this logger you must :
 
-- Add the following code in the file "main.ts:
+- Add the following code in the file <em>main.ts</em> :
 
 ```bash
 import { LoggerService } from './logger/logger.service';
@@ -174,7 +174,7 @@ Library used:
 
 - multer
 
-To develop the file upload, I had many troubles. It seems that the multer configuration definition in the <em>AppModule</em> does not work. <span style="color: red">Don't declare <em>UPLOAD_OPTIONS</em> in tha <em>AppModule</em> as follows</span> :
+To develop the file upload, I had many troubles. It seems that the multer configuration definition in the <em>AppModule</em> does not work. <span style="color: red">Don't declare <em>UPLOAD_OPTIONS</em> in that <em>AppModule</em> as follows</span> :
 
 ```bash
 import { MulterModule } from '@nestjs/platform-express';
@@ -187,7 +187,7 @@ import { MulterModule } from '@nestjs/platform-express';
 export class AppModule {}
 ```
 
-You must user the Multer configuration locally. I have developed the <em>uploadAvatarFile</em> method in <em>UsersController</em> es example.
+You must use the Multer configuration locally. I have developed the <em>uploadAvatarFile</em> method in <em>UsersController</em> as example.
 
 ```bash
   @Post('upload/:username')
@@ -197,7 +197,8 @@ You must user the Multer configuration locally. I have developed the <em>uploadA
   }
 ```
 
-The <em>UPLOAD_OPTIONS</em> are definde in the <em>global.env.ts</em> file. In the example, there is a filter file example. Only jpg, jpeg and png files are accepted. The other files are rejected.
+The <em>UPLOAD_OPTIONS</em> are defined in the <em>global.env.ts</em> file. In the example, there is a filter file example. Only jpg, jpeg and png files are accepted. The other files are rejected.
+For testing this functionality with Postman, we have to select another Avatar image in the request <em>7 - Upload Avatar</em>.
 
 # 5 - Exception filter
 
@@ -255,7 +256,7 @@ export class UsersController {
   }
 ```
 
-This exception filter is installed but it is not working. When I upload a file no problem. When there another error like user yet exist when you try to create one, it does not work because exception filter intercept all exceptions. On exception filter there is <span style="color: #00BFFF"><em>@Catch()</em></span> without any filter. When modify the catch as <span style="color: #00BFFF"><em>@Catch(UploadError)</em></span>, it is working for user creation but not for avatar file uploading. <span style="color: red">For me, it seems to be a bug. Don't use this exception filter as it. A bug correction has to done or somebody has to explain to me how to do.</span>
+This exception filter is installed but it is not working. When I upload a file no problem. When I try to create a user, there is an error like user yet exist when you try to create one. It does not work because exception filter intercept all exceptions. On exception filter there is <span style="color: #00BFFF"><em>@Catch()</em></span> without any filter. When modify the catch as <span style="color: #00BFFF"><em>@Catch(UploadError)</em></span>, it is working for user creation but not for avatar file uploading. <span style="color: red">For me, it seems to be a bug. Don't use this exception filter as it. A bug correction has to be done or somebody has to explain to me how to do.</span>
 
 # 6 - Middleware
 
@@ -277,7 +278,7 @@ export class AppModule implements NestModule {
 
 This middleware will be apply to all the routes "users/upload/\*".
 
-- Normally you nothing to do more. But in my case, before testing this middleware, I had to modify the filter <span style="color: #00BFFF"><em>UploadExceptionFilter</em></span> for replacing <span style="color: #00BFFF"><em>@Catch(UploadError)</em></span> by <span style="color: #00BFFF"><em>@Catch()</em></span>.
+- Normally you have nothing to do more. But in my case, before testing this middleware, I had to modify the filter <span style="color: #00BFFF"><em>UploadExceptionFilter</em></span> for replacing <span style="color: #00BFFF"><em>@Catch(UploadError)</em></span> by <span style="color: #00BFFF"><em>@Catch()</em></span>.
 
 # 7 - Mailer
 
@@ -285,7 +286,7 @@ Library used :
 
 - nodemailer
 
-I have deveoped a simple class named <em>MailService</em>. The mailer configuration is define in <em>global.env.ts</em>. Before using this class you need to upgrade the configuration with your own data. You need alse to modify the class <em>MailService</em> for upgrading your own email address.
+I have deveoped a simple class named <em>MailService</em>. The mailer configuration is define in <em>global.env.ts</em>. Before using this class you need to upgrade the configuration with your own data.
 
 # 8 - Tests
 
@@ -375,14 +376,7 @@ export class AppModule implements NestModule {
 }
 ```
 
-To test,modified the modu this functionality, I have modified the <em>UsersController</em> for adding the decorator <em>@UseGuards(JwtAuthGuard)</em> on the method <em>getUser</em>. If you want to test the authentication, 2 new requests have been added to the Postman file. The first allows to get a token for an existing user (<em>Get Authentication</em>). With the token returned, you have to modify the request <em>Get user</em> (replace the token in the Authorization tab). Before starting the test, you must :
-
-1. Suppress the decorator <em>@UseGuards(JwtAuthGuard)</em> on the method <em>getUser</em>
-2. Execute the Postman request <em>Post user Jess</em> for creating user without Authentication
-3. Put back the decorator <em>@UseGuards(JwtAuthGuard)</em> on the method <em>getUser</em>
-4. Execute the Postman request <em>Get Authentication</em>
-5. Catch the token in the result of the request and modify the <em>Get user</em> request
-6. Execute the <em>Get user</em> request
+To test this functionality, I have modified the <em>UsersController</em> for adding the decorator <em>@UseGuards(JwtAuthGuard)</em> on the method <em>getUser</em>. If you want to test the authentication, 2 new requests have been added to the Postman file. The first allows to get a token for an existing user (<em>Get Authentication</em>). With the token returned, you have to modify the request <em>Get user</em> (replace the token in the Authorization tab).
 
 ## About
 

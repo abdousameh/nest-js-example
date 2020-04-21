@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Post user Jess",
+			"name": "1 - Post user Jess",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -34,13 +34,13 @@
 			"response": []
 		},
 		{
-			"name": "Post user Andrew",
+			"name": "2 - Post user Andrew",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"lastname\": \"Andrew\",\n\t\"firstname\": \"Jonhson\",\n\t\"email\": \"andrew@gmail.com\",\n\t\"password\": \"Ntr08$ret\"\n}",
+					"raw": "{\n\t\"lastname\": \"Andrew\",\n\t\"firstname\": \"Jonhson\",\n\t\"email\": \"andrew@gmail.com\",\n\t\"password\": \"Ntr08$ret\",\n\t\"pseudo\": \"Andrew\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -62,7 +62,7 @@
 			"response": []
 		},
 		{
-			"name": "Change username",
+			"name": "3 - Change username",
 			"request": {
 				"method": "PATCH",
 				"header": [],
@@ -98,7 +98,7 @@
 			"response": []
 		},
 		{
-			"name": "Update user",
+			"name": "4 - Update user",
 			"request": {
 				"method": "PATCH",
 				"header": [],
@@ -133,7 +133,7 @@
 			"response": []
 		},
 		{
-			"name": "Delete user",
+			"name": "5 - Delete user",
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -168,7 +168,7 @@
 			"response": []
 		},
 		{
-			"name": "Change password",
+			"name": "6 - Change password",
 			"request": {
 				"method": "PATCH",
 				"header": [],
@@ -204,7 +204,7 @@
 			"response": []
 		},
 		{
-			"name": "Upload Avatar",
+			"name": "7 - Upload Avatar",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -246,7 +246,7 @@
 			"response": []
 		},
 		{
-			"name": "Send mail",
+			"name": "8 - Send mail",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -266,7 +266,7 @@
 			"response": []
 		},
 		{
-			"name": "Websocket broadcating",
+			"name": "9 - Websocket broadcating",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -294,7 +294,7 @@
 			"response": []
 		},
 		{
-			"name": "Get Authentication",
+			"name": "10 - Get Authentication",
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -303,8 +303,8 @@
 				"header": [
 					{
 						"key": "",
-						"value": "",
-						"type": "text"
+						"type": "text",
+						"value": ""
 					}
 				],
 				"body": {
@@ -312,7 +312,7 @@
 					"urlencoded": [
 						{
 							"key": "username",
-							"value": "jess@gmail.com",
+							"value": "jess1@gmail.com",
 							"type": "text"
 						},
 						{
@@ -343,8 +343,18 @@
 			"response": []
 		},
 		{
-			"name": "Get user",
+			"name": "11 - Get user",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Implc3MxQGdtYWlsLmNvbSIsImlhdCI6MTU4NzQ1MDIzOCwiZXhwIjoxNTg3NDUzODM4fQ.TusIsH6TeabOLCko0BHdZoeQGBef9pIFEKT-G-HOvgA",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [
 					{
@@ -372,7 +382,7 @@
 					"variable": [
 						{
 							"key": "username",
-							"value": "jess@gmail.com"
+							"value": "jess1@gmail.com"
 						}
 					]
 				}
